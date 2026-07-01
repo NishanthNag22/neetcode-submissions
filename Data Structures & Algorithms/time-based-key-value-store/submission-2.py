@@ -1,0 +1,23 @@
+class TimeMap:
+    def __init__(self):
+        self.stack={}
+
+    def set(self, key: str, value: str, timestamp: int) -> None:
+        if key not in self.stack:
+            self.stack[key]=[]    
+        self.stack[key].append([timestamp,value])
+
+    def get(self, key: str, timestamp: int) -> str:
+        if key not in self.stack:
+            return ""
+        arr=self.stack[key]
+        low,high=0,len(arr)-1
+        res=''
+        while low<=high:
+            mid=(low+high)//2
+            if arr[mid][0]<=timestamp:
+                res=arr[mid][1]
+                low=mid+1
+            else:
+                high=mid-1
+        return res
